@@ -1,0 +1,25 @@
+{
+  "name": "slackbotserver",
+  "version": "1.0.0",
+  "description": "a slack bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/odeladetunji/slackbotserver.git"
+  },
+  "author": "odelade olatunji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/odeladetunji/slackbotserver/issues"
+  },
+  "homepage": "https://github.com/odeladetunji/slackbotserver#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "supervisor": "^0.12.0"
+  }
+}
