@@ -76,11 +76,56 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
-	// console.log(JSON.parse(request.body.payload).actions[0].placeholder);
-	const data = JSON.parse(request.body.payload)
-	if(data.actions != undefined && data.actions[0].placeholder != undefined)
-		if(data.actions[0].placeholder.text == 'Please Select Your mode')  
-		    sendMessageData(data.channel, payloads.timeData());  
+	 // console.log(JSON.parse(request.body.payload).actions[0].placeholder);
+	 const data = JSON.parse(request.body.payload);
+	 console.log(data);
+
+	 if(data.actions != undefined && data.actions[0].placeholder != undefined)
+			 if(data.actions[0].placeholder.text == 'Please Select Your mode') 
+				 sendMessageData('#' + data.channel.name, payloads.timeData());
+
+	if(data.actions != undefined && data.actions[0].type == 'radio_buttons'){
+		switch(data.actions[0].selected_option.text.text){
+			case "12:00 Monday":  
+				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+				break;
+			case "12:30 Tuesday":  
+				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+				break;
+			case "13:00 Wednesday":  
+				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+				break;
+			case "13:30 Thursday":  
+				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+				break;
+			case "14:00 Friday":  
+				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+				break;
+			case "14:30 Saturday":  
+				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+				break;
+			case "15:00 Sunday":  
+				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+				break;
+			
+			case "Football":  
+				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+				break;
+			case "Music":  
+				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+				break;
+			case "Sleep":  
+				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+				break;
+			case "Movies":  
+				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+				break;
+			case "Basketball":  
+				sendMessageData('#' + data.channel.name, payloads.numberScale());  
+		} 
+	}
+	
+
 });
 
 server.listen(6000, function(){
