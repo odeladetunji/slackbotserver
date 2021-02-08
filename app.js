@@ -76,6 +76,7 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
+<<<<<<< HEAD
 	 // console.log(JSON.parse(request.body.payload).actions[0].placeholder);
 	 const data = JSON.parse(request.body.payload);
 	 console.log(data);
@@ -85,6 +86,18 @@ app.post('/slackinterractions', (request, response) => {
 				 sendMessageData('#' + data.channel.name, payloads.timeData());
 
 	if(data.actions != undefined && data.actions[0].type == 'radio_buttons'){
+=======
+	// console.log(JSON.parse(request.body.payload).actions[0].placeholder);
+	const data = JSON.parse(request.body.payload);
+        console.log(data);
+        //console.log(JSON.parse(request.body.payload.event));
+	if(data.actions != undefined && data.actions[0].placeholder != undefined)
+		if(data.actions[0].placeholder.text == 'Please Select Your mode')
+                    //console.log(data.channel.id); console.log("pppppppppppppppp");  
+		    sendMessageData('#' + data.channel.name, payloads.timeData());
+
+       if(data.actions != undefined && data.actions[0].type == 'radio_buttons'){
+>>>>>>> ebb223b8f4eb837697a91b65d086ae9302af08c8
 		switch(data.actions[0].selected_option.text.text){
 			case "12:00 Monday":  
 				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
@@ -105,10 +118,15 @@ app.post('/slackinterractions', (request, response) => {
 				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
 				break;
 			case "15:00 Sunday":  
+<<<<<<< HEAD
 				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
 				break;
 			
 			case "Football":  
+=======
+			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
+                        case "Football":  
+>>>>>>> ebb223b8f4eb837697a91b65d086ae9302af08c8
 				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
 				break;
 			case "Music":  
@@ -121,8 +139,13 @@ app.post('/slackinterractions', (request, response) => {
 				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
 				break;
 			case "Basketball":  
+<<<<<<< HEAD
 				sendMessageData('#' + data.channel.name, payloads.numberScale());  
 		} 
+=======
+				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+		}  
+>>>>>>> ebb223b8f4eb837697a91b65d086ae9302af08c8
 	}
 	
 
