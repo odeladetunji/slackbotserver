@@ -4,8 +4,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 require('dotenv').config();
-const rtmapi = require('@Slack/rtm-api');
-const webapi = require('@Slack/web-api');
+const rtmapi = require('@slack/rtm-api');
+const webapi = require('@slack/web-api');
 const rtm = new rtmapi.RTMClient(process.env.SLACK_OUT_TOKEN);
 const web = new webapi.WebClient(process.env.SLACK_OUT_TOKEN);
 const payloads = require('./data/slacksPayloads');
@@ -72,7 +72,7 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
-     console.log(req.body.payload);
+     console.log(request.body);
 });
 
 server.listen(6000, function(){
