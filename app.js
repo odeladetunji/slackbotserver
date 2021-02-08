@@ -76,15 +76,11 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
-<<<<<<< HEAD
 	// console.log(JSON.parse(request.body.payload).actions[0].placeholder);
 	const data = JSON.parse(request.body.payload)
 	if(data.actions != undefined && data.actions[0].placeholder != undefined)
 		if(data.actions[0].placeholder.text == 'Please Select Your mode')  
-		    sendMessageData(event.channel, payloads.timeData());  
-=======
-     console.log(JSON.parse(request.body.payload).actions[0].placeholder);
->>>>>>> 26d14e4e4a59f86eb9cb3f22108fbdcaf7706ad2
+		    sendMessageData(data.channel, payloads.timeData());  
 });
 
 server.listen(6000, function(){
