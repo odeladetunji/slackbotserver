@@ -56,9 +56,9 @@ rtm.on('slack_event', async (eventType, event) => {
 	if(event.type == "desktop_notification" && event.title == "eBot")
 		sendMessageData(event.channel, payloads.moodData());
 		
-	if(event.type == 'block_actions' && event.actions != undefined)
-		if(event.actions[0].placeholder.text == "Please Select Your mode")
-		     sendMessageData(event.channel, payloads.timeData());
+	// if(event.type == 'block_actions' && event.actions != undefined)
+	// 	if(event.actions[0].placeholder.text == "Please Select Your mode")
+	// 	     sendMessageData(event.channel, payloads.timeData());
 });
 
 async function sendMessageData(channel, message){
@@ -76,7 +76,11 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
-     console.log(request.body.payload);
+	// console.log(JSON.parse(request.body.payload).actions[0].placeholder);
+	const data = JSON.parse(request.body.payload)
+	if(data.actions != undefined && data.actions[0].placeholder != undefined)
+		if(data.actions[0].placeholder.text == 'Please Select Your mode')  
+		    sendMessageData(event.channel, payloads.timeData());  
 });
 
 server.listen(6000, function(){
