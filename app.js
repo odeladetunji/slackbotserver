@@ -3,13 +3,78 @@ const server = require('http').Server(app);
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+require('dotenv').config();
+const rtmapi = require('@Slack/rtm-api');
+const webapi = require('@Slack/web-api');
+const rtm = new rtmapi.RTMClient(process.env.SLACK_OUT_TOKEN);
+const web = new webapi.WebClient(process.env.SLACK_OUT_TOKEN);
+const payloads = require('./data/slacksPayloads');
 
+var allowCrossDomain = function(req, res, next) {
+    
+	if('GET' == req.method){ 
+		res.set({
+			'Access-Control-Allow-Origin': 'http://beloveddais.com'
+		});
+	}
 
+	if('POST' == req.method){ 
+		res.set({
+			'Access-Control-Allow-Origin': 'http://beloveddais.com'
+		});
+	}
+	 
+	if('OPTIONS' == req.method){ 
+		res.set({
+			'Access-Control-Allow-Origin': 'http://beloveddias.com',
+			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+			'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length, X-Requested-With'
+		});
+		
+		res.sendStatus(200); 
+	}
+
+   next();
+
+};
+
+app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({ extended: false })); // urlencoded form parser
 app.use(bodyParser.json())  // json parser
-app.use(cors());
+app.use('*',cors());
 
+rtm.start().catch(console.error);
 
-server.listen(9000, function(){
+rtm.on('ready', async () => {
+	console.log('AutoBot has started!');
+    sendMessage('#general', 'welcome all users');
+});
+
+rtm.on('slack_event', async (eventType, event) => {
+	// console.log(eventType);
+	console.log(event)
+	if(event.type == "desktop_notification" && event.title == "eBot")
+	sendMessageData(event.channel, payloads.moodData());
+});
+
+async function sendMessageData(channel, message){
+	await web.chat.postMessage({
+		channel: channel,
+		blocks: message
+	});
+}
+
+async function sendMessage(channel, message){
+	await web.chat.postMessage({
+		channel: channel,
+		text: message
+	});
+}
+
+app.post('/slackinterractions', (request, response) => {
+     console.log(req.body.payload);
+});
+
+server.listen(6000, function(){
 	console.log('slack bot is listening');
 });

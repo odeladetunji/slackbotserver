@@ -1,0 +1,63 @@
+{
+	"blocks": [
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "What are your favorite hobbies"
+			},
+			"accessory": {
+				"type": "radio_buttons",
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Football",
+							"emoji": true
+						},
+						"value": "Football"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Music",
+							"emoji": true
+						},
+						"value": "Music"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Sleep",
+							"emoji": true
+						},
+						"value": "Sleep"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Movies",
+							"emoji": true
+						},
+						"value": "Movies"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Basketball",
+							"emoji": true
+						},
+						"value": "Basketball"
+					}
+				],
+				"action_id": "radio_buttons-action"
+			}
+		},
+		{
+			"type": "divider"
+		}
+	]
+}

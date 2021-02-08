@@ -1,0 +1,52 @@
+{
+	"blocks": [
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Welcome. How are you doing?"
+			},
+			"accessory": {
+				"type": "static_select",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Please Select Your mode",
+					"emoji": true
+				},
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Doing Well",
+							"emoji": true
+						},
+						"value": "Doing Well"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Feeling Lucky",
+							"emoji": true
+						},
+						"value": "Feeling Lucky"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Neutral",
+							"emoji": true
+						},
+						"value": "Neutral"
+					}
+				],
+				"action_id": "static_select-action"
+			}
+		},
+		{
+			"type": "divider"
+		}
+	]
+}

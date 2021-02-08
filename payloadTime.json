@@ -1,0 +1,76 @@
+{
+	"blocks": [
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "when are you free this week for a walk?"
+			},
+			"accessory": {
+				"type": "radio_buttons",
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "12:00 Monday",
+							"emoji": true
+						},
+						"value": "12:00 Monday"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "12:30 Tuesday",
+							"emoji": true
+						},
+						"value": "12:30 Tuesday"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "13:00 Wednesday",
+							"emoji": true
+						},
+						"value": "13:00 Wednesday"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "13:30 Thursday",
+							"emoji": true
+						},
+						"value": "13:30 Thursday"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "14:00 Friday",
+							"emoji": true
+						},
+						"value": "14:00 Friday"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "14:30 Saturday",
+							"emoji": true
+						},
+						"value": "14:30 Saturday"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "15:00 Sunday",
+							"emoji": true
+						},
+						"value": "15:00 Sunday"
+					}
+				],
+				"action_id": "radio_buttons-action"
+			}
+		}
+	]
+}
