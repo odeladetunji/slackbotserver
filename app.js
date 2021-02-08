@@ -76,7 +76,7 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
-     console.log(request.body);
+     console.log(JSON.parse(request.body.payload).actions[0].placeholder);
 });
 
 server.listen(6000, function(){
