@@ -4,8 +4,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 require('dotenv').config();
-const rtmapi = require('@Slack/rtm-api');
-const webapi = require('@Slack/web-api');
+const rtmapi = require('@slack/rtm-api');
+const webapi = require('@slack/web-api');
 const rtm = new rtmapi.RTMClient(process.env.SLACK_OUT_TOKEN);
 const web = new webapi.WebClient(process.env.SLACK_OUT_TOKEN);
 const payloads = require('./data/slacksPayloads');
@@ -76,11 +76,15 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
+<<<<<<< HEAD
 	// console.log(JSON.parse(request.body.payload).actions[0].placeholder);
 	const data = JSON.parse(request.body.payload)
 	if(data.actions != undefined && data.actions[0].placeholder != undefined)
 		if(data.actions[0].placeholder.text == 'Please Select Your mode')  
 		    sendMessageData(event.channel, payloads.timeData());  
+=======
+     console.log(JSON.parse(request.body.payload).actions[0].placeholder);
+>>>>>>> 26d14e4e4a59f86eb9cb3f22108fbdcaf7706ad2
 });
 
 server.listen(6000, function(){
