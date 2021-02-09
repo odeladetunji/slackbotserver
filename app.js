@@ -76,6 +76,11 @@ rtm.on('slack_event', async (eventType, event) => {
 		sendMessageData(event.channel, payloads.moodData());
 		saveChatInDataBase(message);
 	}
+
+	if(event.type == 'message' && event.blocks != undefined)
+	   if(event.blocks[0].type == 'rich_text');
+	       sendMessageData(event.channel, payloads.finalResponse());
+	      
 });
 
 async function sendMessageData(channel, message){

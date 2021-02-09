@@ -11,11 +11,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:6000/fetchallusers",
+					"raw": "odeladeserver.com/fetchallusers",
 					"host": [
-						"localhost"
+						"odeladeserver",
+						"com"
 					],
-					"port": "6000",
 					"path": [
 						"fetchallusers"
 					]
@@ -30,11 +30,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:6000/fetchausers?user=users",
+					"raw": "odeladeserver.com/fetchausers?user=users",
 					"host": [
-						"localhost"
+						"odeladeserver",
+						"com"
 					],
-					"port": "6000",
 					"path": [
 						"fetchausers"
 					],
@@ -55,11 +55,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:6000/fetchchatbyid?id=1",
+					"raw": "odeladeserver.com/fetchchatbyid?id=1",
 					"host": [
-						"localhost"
+						"odeladeserver",
+						"com"
 					],
-					"port": "6000",
 					"path": [
 						"fetchchatbyid"
 					],
