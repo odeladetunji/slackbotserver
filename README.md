@@ -13,7 +13,7 @@ npm i --save
 this should install all dependencies needed for application.
 
 2. the application was built using postgres Database.
-Attached to the root directory is a sql script called chats.sql
+Attached to the root directory is a sql script called chats.sql.
 From your postgres command prompt on the terminal, execute the query script.
 
 3. the start command  is:
