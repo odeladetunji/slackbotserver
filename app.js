@@ -95,18 +95,24 @@ async function sendMessage(channel, message){
 app.post('/slackinterractions', (request, response) => {
 	const data = JSON.parse(request.body.payload);
 	console.log(data);
-	let message = {};
-    message.user = data.user.username;
-    message.answer = data.actions[0].selected_option.text.text;
-    message.question = data.actions[0].placeholder.text;
 
 	if(data.actions != undefined && data.actions[0].placeholder != undefined)
 		if(data.actions[0].placeholder.text == 'Please Select Your mode'){
+			let message = {};
+			message.user = data.user.username;
+			message.answer = data.actions[0].selected_option.text.text;
+			message.question = data.actions[0].placeholder.text;
+
 			sendMessageData('#' + data.channel.name, payloads.timeData());
 			saveChatInDataBase(message);
 		}
 
        if(data.actions != undefined && data.actions[0].type == 'radio_buttons'){
+		let message = {};
+		message.user = data.user.username;
+		message.answer = data.actions[0].selected_option.text.text;
+		message.question = data.actions[0].placeholder.text;
+		
 		switch(data.actions[0].selected_option.text.text){
 			case "12:00 Monday":  
 		    	saveChatInDataBase(message);
