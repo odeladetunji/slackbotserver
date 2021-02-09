@@ -92,6 +92,7 @@ async function sendMessage(channel, message){
 	});
 }
 
+
 app.post('/slackinterractions', (request, response) => {
 	const data = JSON.parse(request.body.payload);
 	console.log(data);
@@ -107,57 +108,69 @@ app.post('/slackinterractions', (request, response) => {
 			saveChatInDataBase(message);
 		}
 
-       if(data.actions != undefined && data.actions[0].type == 'radio_buttons'){
+    if(data.actions != undefined && data.actions[0].type == 'radio_buttons'){
 		let message = {};
 		message.user = data.user.username;
 		message.answer = data.actions[0].selected_option.text.text;
-		message.question = data.actions[0].placeholder.text;
 		
-		switch(data.actions[0].selected_option.text.text){
+		let question = data.actions[0].selected_option.text.text;
+		switch(question){
 			case "12:00 Monday":  
+			    message.question = fetchQuestion(question);
 		    	saveChatInDataBase(message);
 	     		sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "12:30 Tuesday":  
+		    	message.question = fetchQuestion(question);
 		    	saveChatInDataBase(message);
 		    	sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "13:00 Wednesday":  
+		    	message.question = fetchQuestion(question);
 		    	saveChatInDataBase(message);
 			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "13:30 Thursday":  
+		    	message.question = fetchQuestion(question);
 		     	saveChatInDataBase(message);
 			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "14:00 Friday":  
+			    message.question = fetchQuestion(question);
 			    saveChatInDataBase(message);
 			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "14:30 Saturday":  
+			    message.question = fetchQuestion(question);
 			    saveChatInDataBase(message);
 			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "15:00 Sunday":  
+		    	message.question = fetchQuestion(question);
 		    	saveChatInDataBase(message);
 			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
-            case "Football":  
+			case "Football":  
+		    	message.question = fetchQuestion(question);
 			    saveChatInDataBase(message);
 		    	sendMessageData('#' + data.channel.name, payloads.numberScale()); 
 				break;
 			case "Music":  
+			    message.question = fetchQuestion(question);
 		    	saveChatInDataBase(message);
 		    	sendMessageData('#' + data.channel.name, payloads.numberScale());  
 				break;
 			case "Sleep":  
+		    	message.question = fetchQuestion(question);
 			    saveChatInDataBase(message);
 			    sendMessageData('#' + data.channel.name, payloads.numberScale());  
 				break;
-			case "Movies":  
+			case "Movies": 
+		    	message.question = fetchQuestion(question); 
 			    saveChatInDataBase(message);
 		    	sendMessageData('#' + data.channel.name, payloads.numberScale());  
 				break;
-			case "Basketball":  
+			case "Basketball": 
+			    message.question = fetchQuestion(question); 
 			    saveChatInDataBase(message);
 				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
 		}  
@@ -174,6 +187,48 @@ function saveChatInDataBase(message){
 	  }, err => {
 		console.log(err)
 	  });
+}
+
+function fetchQuestion(param){
+	let questionAsked = "";
+	switch(param){
+		case "12:00 Monday":  
+		    questionAsked = "when are you free this week for a walk";
+			break;
+		case "12:30 Tuesday":  
+		    questionAsked = "when are you free this week for a walk";
+			break;
+		case "13:00 Wednesday":  
+	    	questionAsked = "when are you free this week for a walk";
+			break;
+		case "13:30 Thursday":  
+	    	questionAsked = "when are you free this week for a walk";
+			break;
+		case "14:00 Friday":  
+	    	questionAsked = "when are you free this week for a walk";
+			break;
+		case "14:30 Saturday":  
+		    questionAsked = "when are you free this week for a walk";
+			break;
+		case "15:00 Sunday":  
+		    questionAsked = "when are you free this week for a walk";
+		case "Football":  
+			questionAsked = "What are your favorite hobbies"; 
+			break;
+		case "Music":  
+		    questionAsked = "What are your favorite hobbies";   
+			break;
+		case "Sleep":  
+		    questionAsked = "What are your favorite hobbies"; 
+			break;
+		case "Movies":  
+		    questionAsked = "What are your favorite hobbies"; 
+			break;
+		case "Basketball":  
+	     	questionAsked = "What are your favorite hobbies"; 
+	}  
+
+	return questionAsked;
 }
 
 server.listen(6000, function(){
