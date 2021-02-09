@@ -1,5 +1,6 @@
-# slackbotserver
+# slackbotservera
 A slack Bot Server
+Please use @cBot to trigger the Bot
 
 to clone this project use the following command
 
@@ -12,7 +13,8 @@ the base base url for slackinteraction api component had to be
 supplied by me, slack sends a post request to this api whenever
 a user uses an interactive component. i supplied slack a personal 
 url (odeladetest). This means that running this application locally 
-will note work for the interactive component of slack. However everything
+will note work for the interactive component o
+f slack. However everything
 has been deployed to digital oceans server by me.
 
 # Initialization Locally
@@ -26,6 +28,8 @@ From your postgres command prompt on the terminal, execute the query script.
 
 3. the start command  is:
 supervisor app.js
+
+
 please ensure to execute it at the root directory of the project.
 
 # Api Documentation
