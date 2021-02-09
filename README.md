@@ -7,6 +7,14 @@ git clone http://github.com/odeladetunji/slackbotserver.git
 
 the project has been deployed with digital ocean cloud servers.
 
+# Note
+the base base url for slackinteraction api component had to be 
+supplied by me, slack sends a post request to this api whenever
+a user uses an interactive component. i supplied slack a personal 
+url (odeladetest). This means that running this application locally 
+will note work for the interactive component of slack. However everything
+has been deployed to digital oceans server by me.
+
 # Initialization Locally
 1. From the root directory run the following command:
 npm i --save 
