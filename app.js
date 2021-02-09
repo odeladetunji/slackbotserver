@@ -9,6 +9,7 @@ const webapi = require('@slack/web-api');
 const rtm = new rtmapi.RTMClient(process.env.SLACK_OUT_TOKEN);
 const web = new webapi.WebClient(process.env.SLACK_OUT_TOKEN);
 const payloads = require('./data/slacksPayloads');
+const model = require('./data/model');
 
 var allowCrossDomain = function(req, res, next) {
     
@@ -47,18 +48,27 @@ rtm.start().catch(console.error);
 
 rtm.on('ready', async () => {
 	console.log('AutoBot has started!');
-    sendMessage('#general', 'welcome all users');
+	sendMessage('#general', 'welcome all users');
+
+	let message = {};
+    message.user = "users";
+    message.answer = "answers";
+	message.question = "questions";
+
+	saveChatInDataBase(message);
+	
 });
 
 rtm.on('slack_event', async (eventType, event) => {
-	// console.log(eventType);
 	console.log(event)
-	if(event.type == "desktop_notification" && event.title == "eBot")
+	if(event.type == "desktop_notification" && event.title == "eBot"){
+		let message = {};
+        message.user = event.content.split(' ')[0].split('@')[1];
+	    message.question = "@cBot";
+        message.answer = '';
 		sendMessageData(event.channel, payloads.moodData());
-		
-	// if(event.type == 'block_actions' && event.actions != undefined)
-	// 	if(event.actions[0].placeholder.text == "Please Select Your mode")
-	// 	     sendMessageData(event.channel, payloads.timeData());
+		saveChatInDataBase(message);
+	}
 });
 
 async function sendMessageData(channel, message){
@@ -76,57 +86,94 @@ async function sendMessage(channel, message){
 }
 
 app.post('/slackinterractions', (request, response) => {
-	// console.log(JSON.parse(request.body.payload).actions[0].placeholder);
 	const data = JSON.parse(request.body.payload);
-        console.log(data);
-        //console.log(JSON.parse(request.body.payload.event));
+	console.log(data);
+	let message = {};
+    message.user = data.user.username;
+    message.answer = data.actions[0].selected_option.text.text;
+    message.question = data.actions[0].placeholder.text;
+
 	if(data.actions != undefined && data.actions[0].placeholder != undefined)
-		if(data.actions[0].placeholder.text == 'Please Select Your mode')
-                    //console.log(data.channel.id); console.log("pppppppppppppppp");  
-		    sendMessageData('#' + data.channel.name, payloads.timeData());
+		if(data.actions[0].placeholder.text == 'Please Select Your mode'){
+			sendMessageData('#' + data.channel.name, payloads.timeData());
+			saveChatInDataBase(message);
+		}
 
        if(data.actions != undefined && data.actions[0].type == 'radio_buttons'){
 		switch(data.actions[0].selected_option.text.text){
 			case "12:00 Monday":  
-				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+		    	saveChatInDataBase(message);
+	     		sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "12:30 Tuesday":  
-				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+		    	saveChatInDataBase(message);
+		    	sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "13:00 Wednesday":  
-				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+		    	saveChatInDataBase(message);
+			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "13:30 Thursday":  
-				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+		     	saveChatInDataBase(message);
+			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "14:00 Friday":  
-				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+			    saveChatInDataBase(message);
+			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "14:30 Saturday":  
-				sendMessageData('#' + data.channel.name, payloads.hubbiesData()); 
+			    saveChatInDataBase(message);
+			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
 				break;
 			case "15:00 Sunday":  
+		    	saveChatInDataBase(message);
 			    sendMessageData('#' + data.channel.name, payloads.hubbiesData());
             case "Football":  
-				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+			    saveChatInDataBase(message);
+		    	sendMessageData('#' + data.channel.name, payloads.numberScale()); 
 				break;
 			case "Music":  
-				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+		    	saveChatInDataBase(message);
+		    	sendMessageData('#' + data.channel.name, payloads.numberScale());  
 				break;
 			case "Sleep":  
-				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+			    saveChatInDataBase(message);
+			    sendMessageData('#' + data.channel.name, payloads.numberScale());  
 				break;
 			case "Movies":  
-				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
+			    saveChatInDataBase(message);
+		    	sendMessageData('#' + data.channel.name, payloads.numberScale());  
 				break;
 			case "Basketball":  
+			    saveChatInDataBase(message);
 				sendMessageData('#' + data.channel.name, payloads.numberScale()); 
 		}  
 	}
-	
-
 });
+
+function saveChatInDataBase(message){
+	model.chats.create({
+		users: message.user,
+		questions: message.question,
+		answers: message.answer
+	  }).then(resp => { 
+		console.log(resp)
+	  }, err => {
+		console.log(err)
+	  });
+}
 
 server.listen(6000, function(){
 	console.log('slack bot is listening');
 });
+
+
+
+
+
+
+
+
+
+
+
