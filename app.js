@@ -10,6 +10,9 @@ const rtm = new rtmapi.RTMClient(process.env.SLACK_OUT_TOKEN);
 const web = new webapi.WebClient(process.env.SLACK_OUT_TOKEN);
 const payloads = require('./data/slacksPayloads');
 const model = require('./data/model');
+const fetchAllUsers = require('./routes/fetchAllChats');
+const fetchAUsers = require('./routes/fetchAUserChats');
+const fetchChatById = require('./routes/fetchChatById');
 
 var allowCrossDomain = function(req, res, next) {
     
@@ -43,6 +46,10 @@ app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({ extended: false })); // urlencoded form parser
 app.use(bodyParser.json())  // json parser
 app.use('*',cors());
+
+app.use('/fetchallusers', fetchAllUsers);
+app.use('/fetchausers', fetchAUsers);
+app.use('/fetchchatbyid', fetchChatById);
 
 rtm.start().catch(console.error);
 

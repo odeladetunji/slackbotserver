@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "1a6f4dde-bc25-431a-b65e-82e331e897a0",
+		"name": "slackbotapiTunji",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "fetchAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6000/fetchallusers",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"fetchallusers"
+					]
+				},
+				"description": "#Fetch All Users\nthis Endpoint is used to fetch the chats of everyone that communicated with the smartbot,\ncalling this endpoint will diplay a list of all every chat with the bot\nNo parameter is required for calling this endpoint."
+			},
+			"response": []
+		},
+		{
+			"name": "fetchAUsersChats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6000/fetchausers?user=users",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"fetchausers"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "users"
+						}
+					]
+				},
+				"description": "#Fetch A Users Chats with the Bot\nThis endpoint enables the caller to be able to fetch a users particular thats with the bot.\na query parameter called user is required."
+			},
+			"response": []
+		},
+		{
+			"name": "fetchchatbyid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6000/fetchchatbyid?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"fetchchatbyid"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "#Fetch A Chat By Id\nThis endpoint is used to fetch a chat by using the chat id.\nId is required as a query parameter for this endpoint."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
